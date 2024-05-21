@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
-class RequestV1SerializationTest {
+class RequestSerializationTest {
     private val request = TaskCreateRequest(
         debug = TaskDebug(
             mode = TaskRequestDebugMode.STUB,
