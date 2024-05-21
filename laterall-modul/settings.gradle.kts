@@ -19,3 +19,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+
+include(":laterall-api")

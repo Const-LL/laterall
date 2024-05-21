@@ -1,6 +1,10 @@
 [versions]
 kotlin = "1.9.22"
+
 binaryCompabilityValidator = "0.13.2"
+
+openapi-generator = "7.3.0"
+jackson = "2.16.1"
 
 # BASE
 jvm-compiler = "11"
@@ -10,6 +14,11 @@ jvm-language = "17"
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "binaryCompabilityValidator" }
 
+jackson-kotlin = {module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson"}
+jackson-datatype = {module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson"}
+
 [plugins]
 kotlin-multiplatform = {id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin"}
 kotlin-jvm = {id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"}
+
+openapi-generator = {id = "org.openapi.generator", version.ref = "openapi-generator"}
