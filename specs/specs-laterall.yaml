@@ -197,11 +197,11 @@ components:
         priority:
           type: integer
           description: дополнительный приоритет дела
-        tasksstart:
+        taskstart:
           type: string
           format: date-time
           description: дата и время начала
-        tasksend:
+        taskend:
           type: string
           format: date-time
           description: дата и время конца
@@ -209,7 +209,7 @@ components:
           $ref: '#/components/schemas/TaskGroup'
         visibility:
           $ref: '#/components/schemas/TaskVisibility'
-        tasksappend:
+        taskappend:
           type: string
           format: date-time
           description: дата и время добавления дела
