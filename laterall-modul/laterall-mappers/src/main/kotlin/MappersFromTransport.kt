@@ -1,5 +1,7 @@
 package ru.otus.otuskotlin.laterall.mappers
 
+import kotlinx.datetime.*
+import kotlinx.datetime.format.DateTimeComponents
 import ru.otus.otuskotlin.laterall.api.models.*
 import ru.otus.otuskotlin.laterall.common.LtrlContext
 import ru.otus.otuskotlin.laterall.common.models.*
@@ -95,15 +97,25 @@ private fun TaskSearchFilter?.toInternal(): LtrlTaskFilter = LtrlTaskFilter(
     searchString = this?.searchString ?: ""
 )
 
+private fun getInstant(timeString: String) : Instant
+{
+    val customFormat = DateTimeComponents.Format {
+        dateTime(LocalDateTime.Formats.ISO)
+        offset(UtcOffset.Formats.ISO)
+    }
+    val ldt: LocalDateTime = customFormat.parse(timeString).toLocalDateTime();
+    return ldt.toInstant(TimeZone.UTC)
+}
+
 private fun TaskCreateObject.toInternal(): LtrlTask = LtrlTask(
     title = this.title ?: "",
     description = this.description ?: "",
     visibility = this.visibility.fromTransport(),
     group = this.group.fromTransport(),
     importance = this.importance.fromTransport(),
-    //taskstart = "",//todo all times must map!!!
-    //taskend = "",//todo all times must map!!!
-    //taskappend = "",//todo all times must map!!!
+    taskstart = this.taskstart?.let { getInstant(it) }!!,
+    taskend = this.taskend?.let { getInstant(it) }!!,
+    taskappend = this.taskappend?.let { getInstant(it) }!!,
 )
 
 private fun TaskUpdateObject.toInternal(): LtrlTask = LtrlTask(
@@ -113,9 +125,9 @@ private fun TaskUpdateObject.toInternal(): LtrlTask = LtrlTask(
     visibility = this.visibility.fromTransport(),
     group = this.group.fromTransport(),
     importance = this.importance.fromTransport(),
-    //taskstart = "",//todo all times must map!!!
-    //taskend = "",//todo all times must map!!!
-    //taskappend = "",//todo all times must map!!!
+    taskstart = this.taskstart?.let { getInstant(it) }!!,
+    taskend = this.taskend?.let { getInstant(it) }!!,
+    taskappend = this.taskappend?.let { getInstant(it) }!!,
     lock = lock.toTaskLock(),
 )
 

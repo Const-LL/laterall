@@ -13,7 +13,6 @@ class ResponseSerializationTest {
             visibility = TaskVisibility.PUBLIC,
             importance = TaskImportance.LOW,
             group = TaskGroup.OTHER
-            //todo all time parameters
         )
     )
 

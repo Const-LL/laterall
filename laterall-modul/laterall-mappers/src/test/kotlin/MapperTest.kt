@@ -1,5 +1,9 @@
 package ru.otus.otuskotlin.laterall.mappers
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import org.junit.Test
 import ru.otus.otuskotlin.laterall.api.models.*
 import ru.otus.otuskotlin.laterall.common.LtrlContext
@@ -7,7 +11,15 @@ import ru.otus.otuskotlin.laterall.common.models.*
 import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
 import kotlin.test.assertEquals
 
+
 class MapperTest {
+
+    private fun getTestInstant(timeString: String) : Instant
+    {
+        val ldt: LocalDateTime = LocalDateTime.parse(timeString)
+        return ldt.toInstant(TimeZone.UTC)
+    }
+
     @Test
     fun fromTransport() {
         val req = TaskCreateRequest(
@@ -20,7 +32,10 @@ class MapperTest {
                 description = "desc",
                 visibility = TaskVisibility.PUBLIC,
                 group = TaskGroup.OTHER,
-                importance = TaskImportance.LOW
+                importance = TaskImportance.LOW,
+                taskstart = "2024-05-20T08:09:10Z",
+                taskend = "2024-05-20T08:09:10Z",
+                taskappend = "2024-05-20T08:09:10Z"
             ),
         )
 
@@ -33,6 +48,9 @@ class MapperTest {
         assertEquals(LtrlVisibility.VISIBLE_PUBLIC, context.taskRequest.visibility)
         assertEquals(LtrlTaskGroup.OTHER, context.taskRequest.group)
         assertEquals(LtrlTaskImportance.LOW, context.taskRequest.importance)
+        assertEquals(getTestInstant("2024-05-20T08:09:10"), context.taskRequest.taskstart)
+        assertEquals(getTestInstant("2024-05-20T08:09:10"), context.taskRequest.taskend)
+        assertEquals(getTestInstant("2024-05-20T08:09:10"), context.taskRequest.taskappend)
     }
 
     @Test
@@ -46,6 +64,9 @@ class MapperTest {
                 visibility = LtrlVisibility.VISIBLE_PUBLIC,
                 group = LtrlTaskGroup.CAR,
                 importance = LtrlTaskImportance.HIGH,
+                taskstart = getTestInstant("2024-05-20T08:09:10"),
+                taskend = getTestInstant("2024-05-20T08:09:10"),
+                taskappend = getTestInstant("2024-05-20T08:09:10")
             ),
             errors = mutableListOf(
                 LtrlError(
@@ -65,6 +86,9 @@ class MapperTest {
         assertEquals(TaskVisibility.PUBLIC, req.task?.visibility)
         assertEquals(TaskGroup.CAR, req.task?.group)
         assertEquals(TaskImportance.HIGH, req.task?.importance)
+        assertEquals("2024-05-20T08:09:10Z", req.task?.taskstart)
+        assertEquals("2024-05-20T08:09:10Z", req.task?.taskend)
+        assertEquals("2024-05-20T08:09:10Z", req.task?.taskappend)
 
 
         assertEquals(1, req.errors?.size)

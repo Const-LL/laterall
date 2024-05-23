@@ -58,9 +58,9 @@ private fun LtrlTask.toTransportTask(): TaskResponseObject = TaskResponseObject(
     group = group.toTransportTask(),
     importance = importance.toTransportTask(),
     permissions = permissionsClient.toTransportTask(),
-    taskstart = "",//todo all times must map!!!
-    taskend = "",//todo all times must map!!!
-    taskappend = "",//todo all times must map!!!
+    taskstart = taskstart.toString(),
+    taskend = taskend.toString(),
+    taskappend = taskappend.toString(),
 )
 
 private fun Set<LtrlTaskPermissionClient>.toTransportTask(): Set<TaskPermissions>? = this
