@@ -192,8 +192,7 @@ components:
           type: string
           description: Описание дела
         importance:
-          type: string
-          description: важность дела
+          $ref: '#/components/schemas/TaskImportance'
         priority:
           type: integer
           description: дополнительный приоритет дела
@@ -213,20 +212,25 @@ components:
           type: string
           format: date-time
           description: дата и время добавления дела
-          
+
+    TaskImportance:
+      type: string
+      description: важность задач
+      enum:
+        - high
+        - medium
+        - low
+
     TaskGroup:
-      type: object
+      type: string
       description: группа задач
-      properties:
-        id:
-          type: integer
-          description: ID группы
-        title:
-          type: string
-          description: Название группы
-        description:
-          type: string
-          description: Описание группы
+      enum:
+        - other
+        - work
+        - home
+        - children
+        - car
+
     
     TaskVisibility:
       type: string

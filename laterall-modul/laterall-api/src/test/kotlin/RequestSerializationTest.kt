@@ -15,6 +15,9 @@ class RequestSerializationTest {
             title = "task title",
             description = "task description",
             visibility = TaskVisibility.PUBLIC,
+            importance = TaskImportance.LOW,
+            group = TaskGroup.OTHER
+            //todo all time parameters
         )
     )
 
@@ -26,6 +29,8 @@ class RequestSerializationTest {
         assertContains(json, Regex("\"mode\":\\s*\"stub\""))
         assertContains(json, Regex("\"stub\":\\s*\"badTitle\""))
         assertContains(json, Regex("\"requestType\":\\s*\"create\""))
+        assertContains(json, Regex("\"importance\":\\s*\"low\""))
+        assertContains(json, Regex("\"group\":\\s*\"other\""))
     }
 
     @Test

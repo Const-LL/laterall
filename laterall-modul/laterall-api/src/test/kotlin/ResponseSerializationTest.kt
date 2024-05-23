@@ -11,6 +11,9 @@ class ResponseSerializationTest {
             title = "task title",
             description = "task description",
             visibility = TaskVisibility.PUBLIC,
+            importance = TaskImportance.LOW,
+            group = TaskGroup.OTHER
+            //todo all time parameters
         )
     )
 
@@ -20,6 +23,8 @@ class ResponseSerializationTest {
 
         assertContains(json, Regex("\"title\":\\s*\"task title\""))
         assertContains(json, Regex("\"responseType\":\\s*\"create\""))
+        assertContains(json, Regex("\"importance\":\\s*\"low\""))
+        assertContains(json, Regex("\"group\":\\s*\"other\""))
     }
 
     @Test

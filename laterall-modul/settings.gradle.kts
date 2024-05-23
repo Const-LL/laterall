@@ -22,3 +22,5 @@ pluginManagement {
 
 
 include(":laterall-api")
+include(":laterall-mappers")
+include(":laterall-common")
