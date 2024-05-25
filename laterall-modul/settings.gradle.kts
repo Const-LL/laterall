@@ -24,3 +24,10 @@ pluginManagement {
 include(":laterall-api")
 include(":laterall-mappers")
 include(":laterall-common")
+
+include(":laterall-biz")
+//include(":laterall-stubs")
+
+
+include(":laterall-app-spring")
+include(":laterall-app-common")
