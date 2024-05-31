@@ -9,6 +9,5 @@ dependencies {
     // transport models
     implementation(project(":laterall-common"))
 //    implementation(project(":laterall-api-log1"))
-
-//    implementation(project(":laterall-biz"))
+    implementation(project(":laterall-biz"))
 }

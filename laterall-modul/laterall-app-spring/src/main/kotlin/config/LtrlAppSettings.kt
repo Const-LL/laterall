@@ -6,6 +6,6 @@ import ru.otus.otuskotlin.laterall.biz.LtrlTaskProcessor
 import ru.otus.otuskotlin.laterall.common.LtrlCorSettings
 
 data class LtrlAppSettings(
-    override val corSettings: LtrlTaskProcessor,
-    override val processor: LtrlCorSettings,
+    override val corSettings: LtrlCorSettings,
+    override val processor: LtrlTaskProcessor,
 ): ILtrlAppSettings

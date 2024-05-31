@@ -26,7 +26,7 @@ include(":laterall-mappers")
 include(":laterall-common")
 
 include(":laterall-biz")
-//include(":laterall-stubs")
+include(":laterall-stubs")
 
 
 include(":laterall-app-spring")

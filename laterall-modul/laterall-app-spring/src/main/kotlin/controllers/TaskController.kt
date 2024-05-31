@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 
 @Suppress("unused")
 @RestController
-@RequestMapping("v1/ad")
+@RequestMapping("task")
 class TaskController(
     private val appSettings: LtrlAppSettings
 ) {
