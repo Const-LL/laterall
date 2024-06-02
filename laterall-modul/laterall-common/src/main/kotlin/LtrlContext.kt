@@ -20,4 +20,6 @@ data class LtrlContext(
     var taskResponse: LtrlTask = LtrlTask(),
     var tasksResponse: MutableList<LtrlTask> = mutableListOf(),
 
+    var corSettings: LtrlCorSettings = LtrlCorSettings(),
+
     )
