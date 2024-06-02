@@ -21,7 +21,7 @@ dependencies {
     implementation(project(":laterall-common"))
     implementation(project(":laterall-app-common"))
 
-    // v1 api
+    //  api
     implementation(project(":laterall-api"))
     implementation(project(":laterall-mappers"))
 

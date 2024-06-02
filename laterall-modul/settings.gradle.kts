@@ -31,3 +31,5 @@ include(":laterall-stubs")
 
 include(":laterall-app-spring")
 include(":laterall-app-common")
+
+include(":laterall-app-rabbit")
