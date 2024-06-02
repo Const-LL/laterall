@@ -1,8 +1,7 @@
-package ru.otus.otuskotlin.markeplace.app.spring.config
+package ru.otus.otuskotlin.laterall.app.spring.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.otus.otuskotlin.laterall.app.spring.config.LtrlAppSettings
 import ru.otus.otuskotlin.laterall.biz.LtrlTaskProcessor
 import ru.otus.otuskotlin.laterall.common.LtrlCorSettings
 //import ru.otus.otuskotlin.laterall.logging.common.MpLoggerProvider
