@@ -18,10 +18,10 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
         operation("Создание задачи", LtrlCommand.CREATE) {
             stubs("Обработка стабов") {
                 stubCreateSuccess("Имитация успешной обработки", corSettings)
-//                stubValidationBadTitle("Имитация ошибки валидации заголовка")
-//                stubValidationBadDescription("Имитация ошибки валидации описания")
-//                stubDbError("Имитация ошибки работы с БД")
-//                stubNoCase("Ошибка: запрошенный стаб недопустим")
+                stubValidationBadTitle("Имитация ошибки валидации заголовка")
+                stubValidationBadDescription("Имитация ошибки валидации описания")
+                stubDbError("Имитация ошибки работы с БД")
+                stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
         }
     }.build()
