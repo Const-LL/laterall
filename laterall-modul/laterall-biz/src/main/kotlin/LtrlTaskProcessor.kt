@@ -24,7 +24,7 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
                 stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
         }
-                operation("Получить задачу", LtrlCommand.READ) {
+        operation("Получить задачу", LtrlCommand.READ) {
             stubs("Обработка стабов") {
                 stubReadSuccess("Имитация успешной обработки", corSettings)
                 stubValidationBadId("Имитация ошибки валидации id")
@@ -32,10 +32,20 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
                 stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
         }
-                operation("Удалить задачу", LtrlCommand.DELETE) {
+        operation("Удалить задачу", LtrlCommand.DELETE) {
             stubs("Обработка стабов") {
                 stubDeleteSuccess("Имитация успешной обработки", corSettings)
                 stubValidationBadId("Имитация ошибки валидации id")
+                stubDbError("Имитация ошибки работы с БД")
+                stubNoCase("Ошибка: запрошенный стаб недопустим")
+            }
+        }
+        operation("Изменить объявление", LtrlCommand.UPDATE) {
+            stubs("Обработка стабов") {
+                stubUpdateSuccess("Имитация успешной обработки", corSettings)
+                stubValidationBadId("Имитация ошибки валидации id")
+                stubValidationBadTitle("Имитация ошибки валидации заголовка")
+                stubValidationBadDescription("Имитация ошибки валидации описания")
                 stubDbError("Имитация ошибки работы с БД")
                 stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
@@ -53,14 +63,6 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
 //        initStatus("Инициализация статуса")
 //
 
-//        operation("Получить объявление", MkplCommand.READ) {
-//            stubs("Обработка стабов") {
-//                stubReadSuccess("Имитация успешной обработки", corSettings)
-//                stubValidationBadId("Имитация ошибки валидации id")
-//                stubDbError("Имитация ошибки работы с БД")
-//                stubNoCase("Ошибка: запрошенный стаб недопустим")
-//            }
-//        }
 //        operation("Изменить объявление", MkplCommand.UPDATE) {
 //            stubs("Обработка стабов") {
 //                stubUpdateSuccess("Имитация успешной обработки", corSettings)
