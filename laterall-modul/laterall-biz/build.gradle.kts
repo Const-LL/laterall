@@ -7,5 +7,9 @@ dependencies {
     implementation(libs.cor)
     implementation(project(":laterall-common"))
     implementation(project(":laterall-stubs"))
+
+    testImplementation(libs.coroutines.test)
+    testImplementation(kotlin("test"))
+
 }
 
