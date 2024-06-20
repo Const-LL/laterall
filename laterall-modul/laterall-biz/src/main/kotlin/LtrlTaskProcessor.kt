@@ -50,37 +50,13 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
                 stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
         }
+        operation("Поиск объявлений", LtrlCommand.SEARCH) {
+            stubs("Обработка стабов") {
+                stubSearchSuccess("Имитация успешной обработки", corSettings)
+                stubValidationBadId("Имитация ошибки валидации id")
+                stubDbError("Имитация ошибки работы с БД")
+                stubNoCase("Ошибка: запрошенный стаб недопустим")
+            }
+        }
     }.build()
 }
-
-//
-//class MkplAdProcessor(
-//    private val corSettings: MkplCorSettings = MkplCorSettings.NONE
-//) {
-//    suspend fun exec(ctx: MkplContext) = businessChain.exec(ctx.also { it.corSettings = corSettings })
-//
-//    private val businessChain = rootChain<MkplContext> {
-//        initStatus("Инициализация статуса")
-//
-
-//        operation("Изменить объявление", MkplCommand.UPDATE) {
-//            stubs("Обработка стабов") {
-//                stubUpdateSuccess("Имитация успешной обработки", corSettings)
-//                stubValidationBadId("Имитация ошибки валидации id")
-//                stubValidationBadTitle("Имитация ошибки валидации заголовка")
-//                stubValidationBadDescription("Имитация ошибки валидации описания")
-//                stubDbError("Имитация ошибки работы с БД")
-//                stubNoCase("Ошибка: запрошенный стаб недопустим")
-//            }
-//        }
-
-//        operation("Поиск объявлений", MkplCommand.SEARCH) {
-//            stubs("Обработка стабов") {
-//                stubSearchSuccess("Имитация успешной обработки", corSettings)
-//                stubValidationBadId("Имитация ошибки валидации id")
-//                stubDbError("Имитация ошибки работы с БД")
-//                stubNoCase("Ошибка: запрошенный стаб недопустим")
-//            }
-//        }
-//    }.build()
-//}

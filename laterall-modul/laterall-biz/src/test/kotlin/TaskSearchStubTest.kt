@@ -8,41 +8,42 @@ import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
 import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
-class TaskReadStubTest {
+class TaskSearchStubTest {
 
     private val processor = LtrlTaskProcessor()
-    val id = LtrlTaskId("123")
+    val filter = LtrlTaskFilter(searchString = "bolt")
 
     @Test
     fun read() = runTest {
 
         val ctx = LtrlContext(
-            command = LtrlCommand.READ,
+            command = LtrlCommand.SEARCH,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.SUCCESS,
-            taskRequest = LtrlTask(
-                id = id,
-            ),
+            taskFilterRequest = filter,
         )
         processor.exec(ctx)
+        assertTrue(ctx.tasksResponse.size > 1)
+        val first = ctx.tasksResponse.firstOrNull() ?: fail("Empty response list")
+        assertTrue(first.title.contains(filter.searchString))
+        assertTrue(first.description.contains(filter.searchString))
         with (LtrlTaskStub.get()) {
-            assertEquals(id, ctx.taskResponse.id)
-            assertEquals(title, ctx.taskResponse.title)
-            assertEquals(description, ctx.taskResponse.description)
-            assertEquals(visibility, ctx.taskResponse.visibility)
+            assertEquals(visibility, first.visibility)
         }
     }
 
     @Test
     fun badId() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.READ,
+            command = LtrlCommand.SEARCH,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.BAD_ID,
-            taskRequest = LtrlTask(),
+            taskFilterRequest = filter,
         )
         processor.exec(ctx)
         assertEquals(LtrlTask(), ctx.taskResponse)
@@ -53,13 +54,11 @@ class TaskReadStubTest {
     @Test
     fun databaseError() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.READ,
+            command = LtrlCommand.SEARCH,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.DB_ERROR,
-            taskRequest = LtrlTask(
-                id = id,
-            ),
+            taskFilterRequest = filter,
         )
         processor.exec(ctx)
         assertEquals(LtrlTask(), ctx.taskResponse)
@@ -69,13 +68,11 @@ class TaskReadStubTest {
     @Test
     fun badNoCase() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.READ,
+            command = LtrlCommand.SEARCH,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.BAD_TITLE,
-            taskRequest = LtrlTask(
-                id = id,
-            ),
+            taskFilterRequest = filter,
         )
         processor.exec(ctx)
         assertEquals(LtrlTask(), ctx.taskResponse)

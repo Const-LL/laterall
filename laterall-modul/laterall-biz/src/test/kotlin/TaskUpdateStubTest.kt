@@ -11,7 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
-class AdUpdateStubTest {
+class TaskUpdateStubTest {
 
     private val processor = LtrlTaskProcessor()
     val id = LtrlTaskId("test-task-id")
