@@ -8,14 +8,22 @@ import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
 import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.datetime.Instant
+import ru.otus.otuskotlin.laterall.common.NONE
 
 class TaskCreateStubTest {
 
     private val processor = LtrlTaskProcessor()
     val id = LtrlTaskId("test-task-id")
-    val title = "title 666"
-    val description = "desc 666"
+    val title = "test title"
+    val description = "test description"
     val visibility = LtrlVisibility.VISIBLE_PUBLIC
+    var importance = LtrlTaskImportance.LOW
+    var priority = 50
+    var taskstart = Instant.NONE
+    var taskend = Instant.NONE
+    var taskappend = Instant.NONE
+    var group: LtrlTaskGroup = LtrlTaskGroup.OTHER
 
     @Test
     fun create() = runTest {
@@ -30,6 +38,12 @@ class TaskCreateStubTest {
                 title = title,
                 description = description,
                 visibility = visibility,
+                importance = importance,
+                priority = priority,
+                group = group,
+                taskstart = taskstart,
+                taskend = taskend,
+                taskappend = taskappend
             ),
         )
         processor.exec(ctx)
@@ -37,7 +51,14 @@ class TaskCreateStubTest {
         assertEquals(title, ctx.taskResponse.title)
         assertEquals(description, ctx.taskResponse.description)
         assertEquals(visibility, ctx.taskResponse.visibility)
+        assertEquals(importance, ctx.taskResponse.importance)
+        assertEquals(priority, ctx.taskResponse.priority)
+        assertEquals(group, ctx.taskResponse.group)
+        assertEquals(taskstart, ctx.taskResponse.taskstart)
+        assertEquals(taskend, ctx.taskResponse.taskend)
+        assertEquals(taskappend, ctx.taskResponse.taskappend)
     }
+
 
     @Test
     fun badTitle() = runTest {
@@ -51,6 +72,12 @@ class TaskCreateStubTest {
                 title = "",
                 description = description,
                 visibility = visibility,
+                importance = importance,
+                priority = priority,
+                group = group,
+                taskstart = taskstart,
+                taskend = taskend,
+                taskappend = taskappend
             ),
         )
         processor.exec(ctx)
@@ -70,6 +97,12 @@ class TaskCreateStubTest {
                 title = title,
                 description = "",
                 visibility = visibility,
+                importance = importance,
+                priority = priority,
+                group = group,
+                taskstart = taskstart,
+                taskend = taskend,
+                taskappend = taskappend
             ),
         )
         processor.exec(ctx)
@@ -106,6 +139,12 @@ class TaskCreateStubTest {
                 title = title,
                 description = description,
                 visibility = visibility,
+                importance = importance,
+                priority = priority,
+                group = group,
+                taskstart = taskstart,
+                taskend = taskend,
+                taskappend = taskappend
             ),
         )
         processor.exec(ctx)
