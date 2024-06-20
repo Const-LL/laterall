@@ -24,6 +24,14 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
                 stubNoCase("Ошибка: запрошенный стаб недопустим")
             }
         }
+                operation("Удалить задачу", LtrlCommand.DELETE) {
+            stubs("Обработка стабов") {
+                stubDeleteSuccess("Имитация успешной обработки", corSettings)
+                stubValidationBadId("Имитация ошибки валидации id")
+                stubDbError("Имитация ошибки работы с БД")
+                stubNoCase("Ошибка: запрошенный стаб недопустим")
+            }
+        }
     }.build()
 }
 
