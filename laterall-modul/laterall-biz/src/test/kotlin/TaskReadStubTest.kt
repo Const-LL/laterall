@@ -9,16 +9,16 @@ import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TaskDeleteStubTest {
+class AdReadStubTest {
 
     private val processor = LtrlTaskProcessor()
     val id = LtrlTaskId("123")
 
     @Test
-    fun delete() = runTest {
+    fun read() = runTest {
 
         val ctx = LtrlContext(
-            command = LtrlCommand.DELETE,
+            command = LtrlCommand.READ,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.SUCCESS,
@@ -27,18 +27,18 @@ class TaskDeleteStubTest {
             ),
         )
         processor.exec(ctx)
-
-        val stub = LtrlTaskStub.get()
-        assertEquals(stub.id, ctx.taskResponse.id)
-        assertEquals(stub.title, ctx.taskResponse.title)
-        assertEquals(stub.description, ctx.taskResponse.description)
-        assertEquals(stub.visibility, ctx.taskResponse.visibility)
+        with (LtrlTaskStub.get()) {
+            assertEquals(id, ctx.taskResponse.id)
+            assertEquals(title, ctx.taskResponse.title)
+            assertEquals(description, ctx.taskResponse.description)
+            assertEquals(visibility, ctx.taskResponse.visibility)
+        }
     }
 
     @Test
     fun badId() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.DELETE,
+            command = LtrlCommand.READ,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.BAD_ID,
@@ -53,7 +53,7 @@ class TaskDeleteStubTest {
     @Test
     fun databaseError() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.DELETE,
+            command = LtrlCommand.READ,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.DB_ERROR,
@@ -69,7 +69,7 @@ class TaskDeleteStubTest {
     @Test
     fun badNoCase() = runTest {
         val ctx = LtrlContext(
-            command = LtrlCommand.DELETE,
+            command = LtrlCommand.READ,
             state = LtrlState.NONE,
             workMode = LtrlWorkMode.STUB,
             stubCase = LtrlStubs.BAD_TITLE,

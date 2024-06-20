@@ -8,10 +8,10 @@ import ru.otus.otuskotlin.laterall.common.models.LtrlState
 import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
 import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 
-fun ICorChainDsl<LtrlContext>.stubDeleteSuccess(title: String, corSettings: LtrlCorSettings) = worker {
+fun ICorChainDsl<LtrlContext>.stubReadSuccess(title: String, corSettings: LtrlCorSettings) = worker {
     this.title = title
     this.description = """
-        Кейс успеха для удаления задачи
+        Кейс успеха для чтения задачи
     """.trimIndent()
     on { stubCase == LtrlStubs.SUCCESS && state == LtrlState.RUNNING }
     handle {
