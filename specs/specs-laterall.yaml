@@ -1,0 +1,454 @@
+openapi: "3.0.2"
+info:
+  title: LaterALL API
+  description: Some project for shedule life tasks
+  version: "1.0"
+servers:
+  - url: https://localhost:8080
+paths:
+  /task/create:
+    post:
+      tags:
+        - task
+      summary: Create task
+      operationId: TaskCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskCreateResponse'
+  
+  /task/read:
+    post:
+      tags:
+        - Task
+      summary: Read Task
+      operationId: TaskRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskReadResponse'
+  
+  /task/update:
+    post:
+      tags:
+        - Task
+      summary: Update Task
+      operationId: TaskUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateResponse'
+                
+  /task/delete:
+    post:
+      tags:
+        - Task
+      summary: Delete Task
+      operationId: TaskDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDeleteResponse'
+                
+  /task/search:
+    post:
+      tags:
+        - Task
+      summary: Search Task
+      operationId: TaskSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskSearchResponse'
+          
+components:
+  schemas:
+  
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/TaskCreateRequest'
+          read:   '#/components/schemas/TaskReadRequest'
+          update: '#/components/schemas/TaskUpdateRequest'
+          delete: '#/components/schemas/TaskDeleteRequest'
+          search: '#/components/schemas/TaskSearchRequest'
+    
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+        
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+            
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/TaskCreateResponse'
+          read:   '#/components/schemas/TaskReadResponse'
+          update: '#/components/schemas/TaskUpdateResponse'
+          delete: '#/components/schemas/TaskDeleteResponse'
+          search: '#/components/schemas/TaskSearchResponse'
+          init: '#/components/schemas/TaskInitResponse'
+          
+    TaskId:
+      type: string
+      description: Идентификатор задачи
+    TaskLock:
+      type: string
+      description: Версия оптимистичной блокировки
+    
+    BaseTask:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          type: string
+          description: Заголовок дела
+        description:
+          type: string
+          description: Описание дела
+        importance:
+          $ref: '#/components/schemas/TaskImportance'
+        priority:
+          type: integer
+          description: дополнительный приоритет дела
+        taskstart:
+          type: string
+          format: date-time
+          description: дата и время начала
+        taskend:
+          type: string
+          format: date-time
+          description: дата и время конца
+        group:
+          $ref: '#/components/schemas/TaskGroup'
+        visibility:
+          $ref: '#/components/schemas/TaskVisibility'
+        taskappend:
+          type: string
+          format: date-time
+          description: дата и время добавления дела
+
+    TaskImportance:
+      type: string
+      description: важность задач
+      enum:
+        - high
+        - medium
+        - low
+
+    TaskGroup:
+      type: string
+      description: группа задач
+      enum:
+        - other
+        - work
+        - home
+        - children
+        - car
+
+    
+    TaskVisibility:
+      type: string
+      description: 'Тип видимости задачи. Возможные значения: видит только владелец, группа, видимо всем'
+      enum:
+        - ownerOnly
+        - groupOnly
+        - public
+    
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    
+    
+    UserGroup:
+      type: object
+      description: группа пользователя
+      properties:
+        id:
+          type: integer
+          description: ID группы
+        title:
+          type: string
+          description: Название группы
+        description:
+          type: string
+          description: Описание группы
+
+    TaskInitResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+
+    TaskCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseTask'
+
+    TaskCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/TaskRequestDebug'
+        - type: object
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskCreateObject'
+              
+    TaskReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/TaskId'
+              
+    TaskReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/TaskRequestDebug'
+        - type: object
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskReadObject'
+              
+    TaskUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseTask'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/TaskId'
+            lock:
+              $ref: '#/components/schemas/TaskLock'
+              
+    TaskUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/TaskRequestDebug'
+        - type: object
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskUpdateObject'
+              
+    TaskDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/TaskId'
+            lock:
+              $ref: '#/components/schemas/TaskLock'
+
+    TaskDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/TaskRequestDebug'
+        - type: object
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskDeleteObject'
+              
+    TaskSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка, которая будет искаться в задачах
+
+    TaskSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/TaskRequestDebug'
+        - type: object
+          properties:
+            taskFilter:
+              $ref: '#/components/schemas/TaskSearchFilter'
+              
+    TaskResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseTask'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/TaskId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            lock:
+              $ref: '#/components/schemas/TaskLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/TaskPermissions'
+                
+    TaskPermissions:
+      type: string
+      description: Доступы для клиента для операций с задачей
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+              
+    TaskResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одной задачей
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskResponseObject'
+    
+    TaskResponseMulti:
+      allOf:
+        - type: object
+          description: ответ со списком задач
+          properties:
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskResponseObject'
+                
+  # ответы
+    TaskCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/TaskResponseSingle'
+
+    TaskReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/TaskResponseSingle'
+
+    TaskUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/TaskResponseSingle'
+
+    TaskDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/TaskResponseSingle'
+
+    TaskSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/TaskResponseMulti'
+  # STUBS ======================
+    TaskRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    TaskRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/TaskDebug'
+
+    TaskDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/TaskRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/TaskRequestDebugStubs'
+
+    TaskRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString

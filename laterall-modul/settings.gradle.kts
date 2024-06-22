@@ -19,3 +19,8 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+
+include(":laterall-api")
+include(":laterall-mappers")
+include(":laterall-common")
