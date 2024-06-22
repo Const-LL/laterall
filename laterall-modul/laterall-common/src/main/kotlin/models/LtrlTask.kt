@@ -18,10 +18,13 @@ data class LtrlTask(
     var lock: LtrlTaskLock = LtrlTaskLock.NONE,
     val permissionsClient: MutableSet<LtrlTaskPermissionClient> = mutableSetOf()
 ) {
+    fun deepCopy(): LtrlTask = copy(
+        permissionsClient = permissionsClient.toMutableSet(),
+    )
+
     fun isEmpty() = this == NONE
 
     companion object {
         private val NONE = LtrlTask()
     }
-
 }
