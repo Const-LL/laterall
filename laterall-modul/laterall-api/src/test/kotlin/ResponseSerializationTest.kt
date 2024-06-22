@@ -1,5 +1,6 @@
 package ru.otus.otuskotlin.laterall.api
 
+import apiMapper
 import ru.otus.otuskotlin.laterall.api.models.*
 import kotlin.test.Test
 import kotlin.test.assertContains

@@ -6,4 +6,5 @@ data class LtrlError (
     val field: String = "",
     val message: String = "",
     val exception: Throwable? = null,
+//   val level: LogLevel = LogLevel.ERROR, //todo если (когда) вставлю логи
 )

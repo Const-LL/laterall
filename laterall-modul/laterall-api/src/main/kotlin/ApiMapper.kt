@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.json.JsonMapper
 import ru.otus.otuskotlin.laterall.api.models.IRequest
 import ru.otus.otuskotlin.laterall.api.models.IResponse
-val apiMapper = JsonMapper.builder().run { 
+val apiMapper = JsonMapper.builder().run {
     enable(MapperFeature.USE_BASE_TYPE_AS_DEFAULT_IMPL)
     build()
 }
