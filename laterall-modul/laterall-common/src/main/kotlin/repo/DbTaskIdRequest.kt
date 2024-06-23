@@ -6,5 +6,5 @@ import ru.otus.otuskotlin.laterall.common.models.LtrlTaskId
 data class DbTaskIdRequest(
     val id: LtrlTaskId,
 ) {
-    constructor(ad: LtrlTask): this(ad.id)
+    constructor(task: LtrlTask): this(task.id)
 }

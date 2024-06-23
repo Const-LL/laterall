@@ -84,9 +84,9 @@ internal abstract class TaskRepoBaseTest {
             .toTransportSearch().copy(responseType = "search")
     )
 
-    private fun prepareCtx(ad: LtrlTask) = LtrlContext(
+    private fun prepareCtx(task: LtrlTask) = LtrlContext(
         state = LtrlState.RUNNING,
-        taskResponse = ad.apply {
+        taskResponse = task.apply {
             // Пока не реализована эта функциональность
             permissionsClient.clear()
         },

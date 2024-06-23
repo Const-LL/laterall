@@ -24,6 +24,12 @@ fun LtrlTask.toTransportUpdate() = TaskUpdateObject(
     title = title.takeIf { it.isNotBlank() },
     description = description.takeIf { it.isNotBlank() },
     visibility = visibility.toTransportTask(),
+    priority = priority,
+    importance = importance.toTransportTask(),
+    group = group.toTransportTask(),
+    taskstart = taskstart.toString(),
+    taskappend = taskappend.toString(),
+    taskend = taskend.toString(),
     lock = lock.takeIf { it != LtrlTaskLock.NONE }?.asString(),
 )
 
