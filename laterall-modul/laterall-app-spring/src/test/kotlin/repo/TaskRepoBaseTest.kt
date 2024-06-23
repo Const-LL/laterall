@@ -48,10 +48,10 @@ internal abstract class TaskRepoBaseTest {
     open fun updateTask() = testRepoTask(
         "update",
         TaskUpdateRequest(
-            task =  LtrlTaskStub.prepareResult { title = "add" }.toTransportUpdate(),
+            task =  LtrlTaskStub.prepareResult { title = "Починить подвеску машины" }.toTransportUpdate(),
             debug = debug,
         ),
-        prepareCtx(LtrlTaskStub.prepareResult { title = "add" })
+        prepareCtx(LtrlTaskStub.prepareResult { title = "Починить подвеску машины" })
             .toTransportUpdate().copy(responseType = "update")
     )
 

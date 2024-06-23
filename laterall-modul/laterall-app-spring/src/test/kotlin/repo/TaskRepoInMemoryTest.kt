@@ -21,7 +21,7 @@ import kotlin.test.Test
 
 // Temporary simple test with stubs
 @WebFluxTest(TaskController::class, TaskConfig::class)
-internal class TaskRepoInMemoryV1Test : TaskRepoBaseTest() {
+internal class TaskRepoInMemoryTest : TaskRepoBaseTest() {
     @Autowired
     override lateinit var webClient: WebTestClient
 

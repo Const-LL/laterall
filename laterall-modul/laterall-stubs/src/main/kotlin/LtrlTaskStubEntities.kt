@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.laterall.stubs
 
 import kotlinx.datetime.Instant
-import ru.otus.otuskotlin.laterall.common.NONE
+import ru.otus.otuskotlin.laterall.common.*
 import ru.otus.otuskotlin.laterall.common.models.*
 
 object LtrlTaskStubEntities {
@@ -12,9 +12,9 @@ object LtrlTaskStubEntities {
             description = "Необходимо купить запчасти по списку из сервиса",
             importance = LtrlTaskImportance.MEDIUM,
             priority = 50,
-            taskstart = Instant.NONE, //todo
-            taskend = Instant.NONE, //todo
-            taskappend = Instant.NONE, //todo
+            taskstart = getTestInstant("2024-07-01T20:21:22"),
+            taskend = getTestInstant("2024-07-02T20:21:22"),
+            taskappend = getTestInstant("2024-07-01T20:00:22"),
             group = LtrlTaskGroup.CAR,
             ownerId = LtrlUserId("test_user_1"),
             visibility = LtrlVisibility.NONE,
