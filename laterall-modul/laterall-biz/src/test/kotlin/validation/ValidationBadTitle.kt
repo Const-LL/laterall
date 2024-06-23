@@ -9,21 +9,14 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-private val stub = LtrlTaskStub.get()
-
 fun validationTitleCorrect(command: LtrlCommand, processor: LtrlTaskProcessor) = runTest {
     val ctx = LtrlContext(
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "abc",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            title = "abc"
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -36,14 +29,9 @@ fun validationTitleTrim(command: LtrlCommand, processor: LtrlTaskProcessor) = ru
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = " \n\t abc \t\n ",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            title = " \n\t abc \t\n "
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -56,14 +44,9 @@ fun validationTitleEmpty(command: LtrlCommand, processor: LtrlTaskProcessor) = r
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            title = ""
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -78,14 +61,9 @@ fun validationTitleSymbols(command: LtrlCommand, processor: LtrlTaskProcessor) =
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123"),
-            title = "!@#$%^&*(),.{}",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            title = "!@#$%^&*(),.{}"
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

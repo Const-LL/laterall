@@ -18,6 +18,7 @@ object LtrlTaskStubEntities {
             group = LtrlTaskGroup.CAR,
             ownerId = LtrlUserId("test_user_1"),
             visibility = LtrlVisibility.NONE,
+            lock = LtrlTaskLock("123"),
             permissionsClient = mutableSetOf(
                 LtrlTaskPermissionClient.READ,
                 LtrlTaskPermissionClient.UPDATE,

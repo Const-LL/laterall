@@ -16,11 +16,16 @@ fun Throwable.asLtrlError(
     exception = this,
 )
 
-
-inline fun LtrlContext.addError(vararg error: LtrlError) = errors.addAll(error)
+inline fun LtrlContext.addError(error: LtrlError) = errors.add(error)
+inline fun LtrlContext.addErrors(error: Collection<LtrlError>) = errors.addAll(error)
 
 inline fun LtrlContext.fail(error: LtrlError) {
     addError(error)
+    state = LtrlState.FAILING
+}
+
+inline fun LtrlContext.fail(errors: Collection<LtrlError>) {
+    addErrors(errors)
     state = LtrlState.FAILING
 }
 
@@ -37,4 +42,14 @@ inline fun errorValidation(
     field = field,
     group = "validation",
     message = "Validation error for field $field: $description",
+)
+
+inline fun errorSystem(
+    violationCode: String,
+    e: Throwable,
+) = LtrlError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    exception = e,
 )

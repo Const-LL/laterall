@@ -1,0 +1,37 @@
+package ru.otus.otuskotlin.laterall.repo.tests
+
+import ru.otus.otuskotlin.laterall.common.models.LtrlTask
+import ru.otus.otuskotlin.laterall.common.repo.*
+
+class TaskRepositoryMock(
+    private val invokeCreateTask: (DbTaskRequest) -> IDbTaskResponse = { DEFAULT_AD_SUCCESS_EMPTY_MOCK },
+    private val invokeReadTask: (DbTaskIdRequest) -> IDbTaskResponse = { DEFAULT_AD_SUCCESS_EMPTY_MOCK },
+    private val invokeUpdateTask: (DbTaskRequest) -> IDbTaskResponse = { DEFAULT_AD_SUCCESS_EMPTY_MOCK },
+    private val invokeDeleteTask: (DbTaskIdRequest) -> IDbTaskResponse = { DEFAULT_AD_SUCCESS_EMPTY_MOCK },
+    private val invokeSearchTask: (DbTaskFilterRequest) -> IDbTasksResponse = { DEFAULT_ADS_SUCCESS_EMPTY_MOCK },
+): IRepoTask {
+    override suspend fun createTask(rq: DbTaskRequest): IDbTaskResponse {
+        return invokeCreateTask(rq)
+    }
+
+    override suspend fun readTask(rq: DbTaskIdRequest): IDbTaskResponse {
+        return invokeReadTask(rq)
+    }
+
+    override suspend fun updateTask(rq: DbTaskRequest): IDbTaskResponse {
+        return invokeUpdateTask(rq)
+    }
+
+    override suspend fun deleteTask(rq: DbTaskIdRequest): IDbTaskResponse {
+        return invokeDeleteTask(rq)
+    }
+
+    override suspend fun searchTask(rq: DbTaskFilterRequest): IDbTasksResponse {
+        return invokeSearchTask(rq)
+    }
+
+    companion object {
+        val DEFAULT_AD_SUCCESS_EMPTY_MOCK = DbTaskResponseOk(LtrlTask())
+        val DEFAULT_ADS_SUCCESS_EMPTY_MOCK = DbTasksResponseOk(emptyList())
+    }
+}

@@ -10,6 +10,8 @@ dependencies {
 
     testImplementation(libs.coroutines.test)
     testImplementation(kotlin("test"))
+    testImplementation(project(":laterall-repo-tests"))
+    testImplementation(project(":laterall-repo-inmemory"))
 
 }
 
