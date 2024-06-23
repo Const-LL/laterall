@@ -15,7 +15,6 @@ private val initTask = LtrlTask(
     id = LtrlTaskId("123"),
     title = "abc",
     description = "abc",
-    adType = LtrlDealSide.DEMAND,
     visibility = LtrlVisibility.VISIBLE_PUBLIC,
 )
 private val repo = TaskRepositoryMock(
@@ -39,7 +38,6 @@ fun repoNotFoundTest(command: LtrlCommand) = runTest {
             id = LtrlTaskId("12345"),
             title = "xyz",
             description = "xyz",
-            adType = LtrlDealSide.DEMAND,
             visibility = LtrlVisibility.VISIBLE_TO_GROUP,
             lock = LtrlTaskLock("123"),
         ),

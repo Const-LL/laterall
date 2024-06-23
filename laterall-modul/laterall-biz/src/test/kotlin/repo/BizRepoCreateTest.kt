@@ -24,7 +24,6 @@ class BizRepoCreateTest {
                     title = it.task.title,
                     description = it.task.description,
                     ownerId = userId,
-                    adType = it.task.adType,
                     visibility = it.task.visibility,
                 )
             )
@@ -44,7 +43,6 @@ class BizRepoCreateTest {
             taskRequest = LtrlTask(
                 title = "abc",
                 description = "abc",
-                adType = LtrlDealSide.DEMAND,
                 visibility = LtrlVisibility.VISIBLE_PUBLIC,
             ),
         )
@@ -53,7 +51,6 @@ class BizRepoCreateTest {
         assertNotEquals(LtrlTaskId.NONE, ctx.taskResponse.id)
         assertEquals("abc", ctx.taskResponse.title)
         assertEquals("abc", ctx.taskResponse.description)
-        assertEquals(LtrlDealSide.DEMAND, ctx.taskResponse.adType)
         assertEquals(LtrlVisibility.VISIBLE_PUBLIC, ctx.taskResponse.visibility)
     }
 }

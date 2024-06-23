@@ -19,7 +19,6 @@ class BizRepoSearchTest {
         title = "abc",
         description = "abc",
         ownerId = userId,
-        adType = LtrlDealSide.DEMAND,
         visibility = LtrlVisibility.VISIBLE_PUBLIC,
     )
     private val repo = TaskRepositoryMock(
@@ -40,7 +39,6 @@ class BizRepoSearchTest {
             workMode = LtrlWorkMode.TEST,
             taskFilterRequest = LtrlTaskFilter(
                 searchString = "abc",
-                dealSide = LtrlDealSide.DEMAND
             ),
         )
         processor.exec(ctx)

@@ -22,7 +22,6 @@ class BizRepoDeleteTest {
         title = "abc",
         description = "abc",
         ownerId = userId,
-        adType = LtrlDealSide.DEMAND,
         visibility = LtrlVisibility.VISIBLE_PUBLIC,
     )
     private val repo = TaskRepositoryMock(
@@ -64,7 +63,6 @@ class BizRepoDeleteTest {
         assertEquals(initTask.id, ctx.taskResponse.id)
         assertEquals(initTask.title, ctx.taskResponse.title)
         assertEquals(initTask.description, ctx.taskResponse.description)
-        assertEquals(initTask.adType, ctx.taskResponse.adType)
         assertEquals(initTask.visibility, ctx.taskResponse.visibility)
     }
 

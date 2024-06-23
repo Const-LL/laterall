@@ -20,7 +20,6 @@ class BizRepoUpdateTest {
         title = "abc",
         description = "abc",
         ownerId = userId,
-        adType = LtrlDealSide.DEMAND,
         visibility = LtrlVisibility.VISIBLE_PUBLIC,
     )
     private val repo = TaskRepositoryMock(
@@ -35,7 +34,6 @@ class BizRepoUpdateTest {
                     id = LtrlTaskId("123"),
                     title = "xyz",
                     description = "xyz",
-                    adType = LtrlDealSide.DEMAND,
                     visibility = LtrlVisibility.VISIBLE_TO_GROUP,
                 )
             )
@@ -50,7 +48,6 @@ class BizRepoUpdateTest {
             id = LtrlTaskId("123"),
             title = "xyz",
             description = "xyz",
-            adType = LtrlDealSide.DEMAND,
             visibility = LtrlVisibility.VISIBLE_TO_GROUP,
             lock = LtrlTaskLock("123"),
         )
@@ -65,7 +62,6 @@ class BizRepoUpdateTest {
         assertEquals(adToUpdate.id, ctx.taskResponse.id)
         assertEquals(adToUpdate.title, ctx.taskResponse.title)
         assertEquals(adToUpdate.description, ctx.taskResponse.description)
-        assertEquals(adToUpdate.adType, ctx.taskResponse.adType)
         assertEquals(adToUpdate.visibility, ctx.taskResponse.visibility)
     }
 
