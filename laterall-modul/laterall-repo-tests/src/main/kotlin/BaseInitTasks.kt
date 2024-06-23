@@ -7,7 +7,7 @@ abstract class BaseInitTasks(private val op: String): IInitObjects<LtrlTask> {
         suf: String,
         ownerId: LtrlUserId = LtrlUserId("owner-123"),
     ) = LtrlTask(
-        id = LtrlTaskId("ad-repo-$op-$suf"),
+        id = LtrlTaskId("task-repo-$op-$suf"),
         title = "$suf stub",
         description = "$suf stub description",
         ownerId = ownerId,
