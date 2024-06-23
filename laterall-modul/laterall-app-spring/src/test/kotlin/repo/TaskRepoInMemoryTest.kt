@@ -36,7 +36,7 @@ internal class TaskRepoInMemoryTest : TaskRepoBaseTest() {
         val slotFl = slot<DbTaskFilterRequest>()
         val repo = TaskRepoInitialized(
             repo = TaskRepoInMemory(randomUuid = { uuidNew }),
-            initObjects = LtrlTaskStub.prepareCarTaskList("xx"))
+            initObjects = LtrlTaskStub.prepareCarTaskList("xx") + LtrlTaskStub.get() )
         coEvery { testTestRepo.createTask(capture(slotTask)) } coAnswers { repo.createTask(slotTask.captured) }
         coEvery { testTestRepo.readTask(capture(slotId)) } coAnswers { repo.readTask(slotId.captured) }
         coEvery { testTestRepo.updateTask(capture(slotTask)) } coAnswers { repo.updateTask(slotTask.captured) }
