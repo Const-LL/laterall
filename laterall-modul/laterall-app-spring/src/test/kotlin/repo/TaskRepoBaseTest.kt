@@ -99,7 +99,7 @@ internal abstract class TaskRepoBaseTest {
     ) {
         webClient
             .post()
-            .uri("/v1/ad/$url")
+            .uri("/task/$url")
             .contentType(MediaType.APPLICATION_JSON)
             .body(BodyInserters.fromValue(requestObj))
             .exchange()
