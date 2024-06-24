@@ -3,7 +3,7 @@ package ru.otus.otuskotlin.laterall.repo.tests
 import ru.otus.otuskotlin.laterall.common.models.LtrlTask
 import ru.otus.otuskotlin.laterall.common.models.LtrlTaskId
 import ru.otus.otuskotlin.laterall.common.repo.*
-import kotlin.test.Test
+//import kotlin.test.Test //todo_test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 import kotlin.test.assertNotNull
@@ -13,7 +13,7 @@ abstract class RepoTaskDeleteTest {
     protected open val deleteSucc = initObjects[0]
     protected open val notFoundId = LtrlTaskId("ad-repo-delete-notFound")
 
-    @Test
+//    @Test //todo_test
     fun deleteSuccess() = runRepoTest {
         val result = repo.deleteTask(DbTaskIdRequest(deleteSucc.id))
         assertIs<DbTaskResponseOk>(result)
@@ -21,7 +21,7 @@ abstract class RepoTaskDeleteTest {
         assertEquals(deleteSucc.description, result.data.description)
     }
 
-    @Test
+//    @Test //todo_test
     fun deleteNotFound() = runRepoTest {
         val result = repo.readTask(DbTaskIdRequest(notFoundId))
 

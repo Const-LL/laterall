@@ -36,7 +36,7 @@ dependencies {
 
 
     // tests
-    testImplementation(kotlin("test-junit5"))
+    testImplementation(kotlin("test"))
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.spring.mockk)
