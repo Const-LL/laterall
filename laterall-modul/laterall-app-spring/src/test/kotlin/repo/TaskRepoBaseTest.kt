@@ -71,14 +71,14 @@ internal abstract class TaskRepoBaseTest {
     open fun searchTask() = testRepoTask(
         "search",
         TaskSearchRequest(
-            taskFilter = TaskSearchFilter(),
+            taskFilter = TaskSearchFilter("Ремонт"),
             debug = debug,
         ),
         LtrlContext(
             state = LtrlState.RUNNING,
-            tasksResponse = LtrlTaskStub.prepareCarTaskList("xx")
+            tasksResponse = (LtrlTaskStub.prepareCarTaskList("xx") + LtrlTaskStub.get())
                 .onEach { it.permissionsClient.clear() }
-                .sortedBy { it.id.asString() }
+                .filter { it.title.contains("Ремонт машины") }
                 .toMutableList()
         )
             .toTransportSearch().copy(responseType = "search")
