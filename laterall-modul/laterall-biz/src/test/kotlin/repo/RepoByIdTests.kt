@@ -39,7 +39,7 @@ fun repoNotFoundTest(command: LtrlCommand) = runTest {
             title = "xyz",
             description = "xyz",
             visibility = LtrlVisibility.VISIBLE_TO_GROUP,
-            lock = LtrlTaskLock("123"),
+            lock = LtrlTaskLock("123"),//todo expand lock id?
         ),
     )
     processor.exec(ctx)

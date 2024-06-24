@@ -1,7 +1,12 @@
 package ru.otus.otuskotlin.laterall.common.repo
 
+import ru.otus.otuskotlin.laterall.common.helpers.errorSystem
 import ru.otus.otuskotlin.laterall.common.models.LtrlTaskId
 import ru.otus.otuskotlin.laterall.common.models.LtrlError
+import ru.otus.otuskotlin.laterall.common.models.LtrlTask
+import ru.otus.otuskotlin.laterall.common.models.LtrlTaskLock
+import ru.otus.otuskotlin.laterall.common.repo.exceptions.RepoException
+import ru.otus.otuskotlin.laterall.common.repo.exceptions.RepoConcurrencyException
 
 const val ERROR_GROUP_REPO = "repo"
 
@@ -20,5 +25,41 @@ val errorEmptyId = DbTaskResponseErr(
         group = ERROR_GROUP_REPO,
         field = "id",
         message = "Id must not be null or blank"
+    )
+)
+
+
+fun errorRepoConcurrency(
+    oldTask: LtrlTask,
+    expectedLock: LtrlTaskLock,
+    exception: Exception = RepoConcurrencyException(
+        id = oldTask.id,
+        expectedLock = expectedLock,
+        actualLock = oldTask.lock,
+    ),
+) = DbTaskResponseErrWithData(
+    ad = oldTask,
+    err = LtrlError(
+        code = "$ERROR_GROUP_REPO-concurrency",
+        group = ERROR_GROUP_REPO,
+        field = "lock",
+        message = "The object with ID ${oldTask.id.asString()} has been changed concurrently by another user or process",
+        exception = exception,
+    )
+)
+
+fun errorEmptyLock(id: LtrlTaskId) = DbTaskResponseErr(
+    LtrlError(
+        code = "$ERROR_GROUP_REPO-lock-empty",
+        group = ERROR_GROUP_REPO,
+        field = "lock",
+        message = "Lock for Ad ${id.asString()} is empty that is not admitted"
+    )
+)
+
+fun errorDb(e: RepoException) = DbTaskResponseErr(
+    errorSystem(
+        violationCode = "dbLockEmpty",
+        e = e
     )
 )

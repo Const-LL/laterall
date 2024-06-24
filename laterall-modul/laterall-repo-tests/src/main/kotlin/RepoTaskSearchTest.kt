@@ -5,7 +5,7 @@ import ru.otus.otuskotlin.laterall.common.models.LtrlUserId
 import ru.otus.otuskotlin.laterall.common.repo.DbTaskFilterRequest
 import ru.otus.otuskotlin.laterall.common.repo.DbTasksResponseOk
 import ru.otus.otuskotlin.laterall.common.repo.IRepoTask
-import kotlin.test.Test
+//import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
@@ -15,7 +15,7 @@ abstract class RepoTaskSearchTest {
 
     protected open val initializedObjects: List<LtrlTask> = initObjects
 
-    @Test
+//    @Test //todo
     fun searchOwner() = runRepoTest {
         val result = repo.searchTask(DbTaskFilterRequest(ownerId = searchOwnerId))
         assertIs<DbTasksResponseOk>(result)

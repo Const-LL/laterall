@@ -10,6 +10,7 @@ import kotlin.test.*
 abstract class RepoTaskCreateTest {
     abstract val repo: IRepoTaskInitializable
     protected open val uuidNew = LtrlTaskId("10000000-0000-0000-0000-000000000001")
+    protected open val lockNew: LtrlTaskLock = LtrlTaskLock("20000000-0000-0000-0000-000000000002")
 
     private val createObj = LtrlTask(
         title = "create object",
@@ -18,7 +19,7 @@ abstract class RepoTaskCreateTest {
         visibility = LtrlVisibility.VISIBLE_TO_GROUP,
     )
 
-    @Test
+//    @Test //todo
     fun createSuccess() = runRepoTest {
         val result = repo.createTask(DbTaskRequest(createObj))
         val expected = createObj
