@@ -104,6 +104,7 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
             chain {
                 title = "Логика сохранения"
                 repoRead("Чтение задачи из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
                 repoPrepareUpdate("Подготовка объекта для обновления")
                 repoUpdate("Обновление задачи в БД")
             }
@@ -131,6 +132,7 @@ class LtrlTaskProcessor(private val corSettings: LtrlCorSettings = LtrlCorSettin
             chain {
                 title = "Логика удаления"
                 repoRead("Чтение задачи из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
                 repoPrepareDelete("Подготовка объекта для удаления")
                 repoDelete("Удаление задачи из БД")
             }

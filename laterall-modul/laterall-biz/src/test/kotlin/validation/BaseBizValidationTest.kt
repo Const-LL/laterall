@@ -12,7 +12,7 @@ abstract class BaseBizValidationTest {
     private val repo = TaskRepoInitialized(
         repo = TaskRepoInMemory(),
         initObjects = listOf(
-            LtrlTaskStub.prepareResult {  },
+            LtrlTaskStub.get(),
         ),
     )
     private val settings by lazy { LtrlCorSettings(repoTest = repo) }

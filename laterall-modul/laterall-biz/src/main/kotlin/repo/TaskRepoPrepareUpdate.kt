@@ -15,6 +15,7 @@ fun ICorChainDsl<LtrlContext>.repoPrepareUpdate(title: String) = worker {
             this.title = taskValidated.title
             description = taskValidated.description
             visibility = taskValidated.visibility
+            lock = taskValidated.lock
         }
     }
 }

@@ -21,6 +21,7 @@ class BizRepoUpdateTest {
         description = "abc",
         ownerId = userId,
         visibility = LtrlVisibility.VISIBLE_PUBLIC,
+        lock = LtrlTaskLock("123")
     )
     private val repo = TaskRepositoryMock(
         invokeReadTask = {
@@ -35,6 +36,7 @@ class BizRepoUpdateTest {
                     title = "xyz",
                     description = "xyz",
                     visibility = LtrlVisibility.VISIBLE_TO_GROUP,
+                    lock = LtrlTaskLock("123")
                 )
             )
         }
