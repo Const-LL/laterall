@@ -61,6 +61,7 @@ private fun LtrlTask.toTransportTask(): TaskResponseObject = TaskResponseObject(
     taskstart = taskstart.toString(),
     taskend = taskend.toString(),
     taskappend = taskappend.toString(),
+    lock = lock.takeIf { it != LtrlTaskLock.NONE }?.asString()
 )
 
 private fun Set<LtrlTaskPermissionClient>.toTransportTask(): Set<TaskPermissions>? = this
