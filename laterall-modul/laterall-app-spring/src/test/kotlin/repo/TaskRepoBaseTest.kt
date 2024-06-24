@@ -26,7 +26,7 @@ internal abstract class TaskRepoBaseTest {
         prepareCtx(LtrlTaskStub.prepareResult {
             id = LtrlTaskId(uuidNew)
             ownerId = LtrlUserId.NONE
-            lock = LtrlTaskLock.NONE
+            lock = LtrlTaskLock(uuidNew)
         })
             .toTransportCreate()
             .copy(responseType = "create")
@@ -51,7 +51,9 @@ internal abstract class TaskRepoBaseTest {
             task =  LtrlTaskStub.prepareResult { title = "Починить подвеску машины" }.toTransportUpdate(),
             debug = debug,
         ),
-        prepareCtx(LtrlTaskStub.prepareResult { title = "Починить подвеску машины" })
+        prepareCtx(LtrlTaskStub.prepareResult {
+            title = "Починить подвеску машины"
+            lock = LtrlTaskLock(uuidNew) })
             .toTransportUpdate().copy(responseType = "update")
     )
 
