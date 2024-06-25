@@ -94,7 +94,8 @@ fun LtrlContext.fromTransport(request: TaskSearchRequest) {
 }
 
 private fun TaskSearchFilter?.toInternal(): LtrlTaskFilter = LtrlTaskFilter(
-    searchString = this?.searchString ?: ""
+    searchString = this?.searchString ?: "",
+    ownerId = this?.ownerId?.let { LtrlUserId(it) } ?: LtrlUserId.NONE,
 )
 
 private fun getInstant(timeString: String) : Instant

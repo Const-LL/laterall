@@ -20,9 +20,9 @@ class TaskCreateStubTest {
     val visibility = LtrlVisibility.VISIBLE_PUBLIC
     var importance = LtrlTaskImportance.LOW
     var priority = 50
-    var taskstart = Instant.NONE
-    var taskend = Instant.NONE
-    var taskappend = Instant.NONE
+    var taskstart = LtrlTaskStub.get().taskstart
+    var taskend = LtrlTaskStub.get().taskend
+    var taskappend = LtrlTaskStub.get().taskappend
     var group: LtrlTaskGroup = LtrlTaskGroup.OTHER
 
     @Test

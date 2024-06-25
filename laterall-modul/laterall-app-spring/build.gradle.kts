@@ -28,10 +28,18 @@ dependencies {
     // biz
     implementation(project(":laterall-biz"))
 
+    implementation(project(":laterall-stubs"))
+
+    implementation(project(":laterall-repo-common"))
+    implementation(project(":laterall-repo-stubs"))
+    implementation(project(":laterall-repo-inmemory"))
+
+
     // tests
-    testImplementation(kotlin("test-junit5"))
+    testImplementation(kotlin("test"))
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.spring.mockk)
 }
 
 tasks {

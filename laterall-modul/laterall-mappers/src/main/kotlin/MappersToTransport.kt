@@ -77,14 +77,14 @@ private fun LtrlTaskPermissionClient.toTransportTask() = when (this) {
     LtrlTaskPermissionClient.DELETE -> TaskPermissions.DELETE
 }
 
-private fun LtrlVisibility.toTransportTask(): TaskVisibility? = when (this) {
+internal fun LtrlVisibility.toTransportTask(): TaskVisibility? = when (this) {
     LtrlVisibility.VISIBLE_PUBLIC -> TaskVisibility.PUBLIC
     LtrlVisibility.VISIBLE_TO_GROUP -> TaskVisibility.GROUP_ONLY
     LtrlVisibility.VISIBLE_TO_OWNER -> TaskVisibility.OWNER_ONLY
     LtrlVisibility.NONE -> null
 }
 
-private fun LtrlTaskGroup.toTransportTask(): TaskGroup? = when (this) {
+internal fun LtrlTaskGroup.toTransportTask(): TaskGroup? = when (this) {
     LtrlTaskGroup.OTHER -> TaskGroup.OTHER
     LtrlTaskGroup.WORK -> TaskGroup.WORK
     LtrlTaskGroup.HOME -> TaskGroup.HOME
@@ -93,26 +93,26 @@ private fun LtrlTaskGroup.toTransportTask(): TaskGroup? = when (this) {
     LtrlTaskGroup.NONE -> null
 }
 
-private fun LtrlTaskImportance.toTransportTask(): TaskImportance? = when (this) {
+internal fun LtrlTaskImportance.toTransportTask(): TaskImportance? = when (this) {
     LtrlTaskImportance.LOW -> TaskImportance.LOW
     LtrlTaskImportance.MEDIUM -> TaskImportance.MEDIUM
     LtrlTaskImportance.HIGH -> TaskImportance.HIGH
     LtrlTaskImportance.NONE -> null
 }
 
-private fun List<LtrlError>.toTransportErrors(): List<Error>? = this
+internal fun List<LtrlError>.toTransportErrors(): List<Error>? = this
     .map { it.toTransportTask() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun LtrlError.toTransportTask() = Error(
+internal fun LtrlError.toTransportTask() = Error(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
 
-private fun LtrlState.toResult(): ResponseResult? = when (this) {
+internal fun LtrlState.toResult(): ResponseResult? = when (this) {
     LtrlState.RUNNING -> ResponseResult.SUCCESS
     LtrlState.FAILING -> ResponseResult.ERROR
     LtrlState.FINISHING -> ResponseResult.SUCCESS

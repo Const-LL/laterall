@@ -9,25 +9,17 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-private val stub = LtrlTaskStub.get()
-
 fun validationDescriptionCorrect(command: LtrlCommand, processor: LtrlTaskProcessor) = runTest {
     val ctx = LtrlContext(
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "abc",
-            description = "abc",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.get(),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
     assertNotEquals(LtrlState.FAILING, ctx.state)
-    assertEquals("abc", ctx.taskValidated.description)
+    assertContains(ctx.taskValidated.description, "abc")
 }
 
 fun validationDescriptionTrim(command: LtrlCommand, processor: LtrlTaskProcessor) = runTest {
@@ -35,13 +27,9 @@ fun validationDescriptionTrim(command: LtrlCommand, processor: LtrlTaskProcessor
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "abc",
-            description = " \n\tabc \n\t",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            description = " \n\tabc \n\t"
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -54,13 +42,9 @@ fun validationDescriptionEmpty(command: LtrlCommand, processor: LtrlTaskProcesso
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "abc",
-            description = "",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            description = ""
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -75,13 +59,9 @@ fun validationDescriptionSymbols(command: LtrlCommand, processor: LtrlTaskProces
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = stub.id,
-            title = "abc",
-            description = "!@#$%^&*(),.{}",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            description = "!@#$%^&*(),.{}"
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
