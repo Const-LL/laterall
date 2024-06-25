@@ -35,16 +35,6 @@ data class TaskEntity(
         taskappend = model.taskappend.toString().takeIf { it.isNotBlank() },
     )
 
-    private fun getInstant(timeString: String) : Instant
-    {
-        val customFormat = DateTimeComponents.Format {
-            dateTime(LocalDateTime.Formats.ISO)
-            offset(UtcOffset.Formats.ISO)
-        }
-        val ldt: LocalDateTime = customFormat.parse(timeString).toLocalDateTime();
-        return ldt.toInstant(TimeZone.UTC)
-    }
-
     fun toInternal() = LtrlTask(
         id = id?.let { LtrlTaskId(it) }?: LtrlTaskId.NONE,
         title = title?: "",

@@ -6,6 +6,7 @@ import ru.otus.otuskotlin.laterall.api.models.*
 import ru.otus.otuskotlin.laterall.common.LtrlContext
 import ru.otus.otuskotlin.laterall.common.models.*
 import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
+import ru.otus.otuskotlin.laterall.common.*
 
 import ru.otus.otuskotlin.laterall.common.models.LtrlWorkMode
 import ru.otus.otuskotlin.laterall.mappers.exceptions.UnknownRequestClass
@@ -97,16 +98,6 @@ private fun TaskSearchFilter?.toInternal(): LtrlTaskFilter = LtrlTaskFilter(
     searchString = this?.searchString ?: "",
     ownerId = this?.ownerId?.let { LtrlUserId(it) } ?: LtrlUserId.NONE,
 )
-
-private fun getInstant(timeString: String) : Instant
-{
-    val customFormat = DateTimeComponents.Format {
-        dateTime(LocalDateTime.Formats.ISO)
-        offset(UtcOffset.Formats.ISO)
-    }
-    val ldt: LocalDateTime = customFormat.parse(timeString).toLocalDateTime();
-    return ldt.toInstant(TimeZone.UTC)
-}
 
 private fun TaskCreateObject.toInternal(): LtrlTask = LtrlTask(
     title = this.title ?: "",
