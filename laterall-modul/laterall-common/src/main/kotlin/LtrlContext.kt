@@ -17,7 +17,14 @@ data class LtrlContext(
     var taskRequest: LtrlTask = LtrlTask(),
     var taskFilterRequest: LtrlTaskFilter = LtrlTaskFilter(),
 
+    var taskValidating: LtrlTask = LtrlTask(),
+    var taskFilterValidating: LtrlTaskFilter = LtrlTaskFilter(),
+
+    var taskValidated: LtrlTask = LtrlTask(),
+    var taskFilterValidated: LtrlTaskFilter = LtrlTaskFilter(),
     var taskResponse: LtrlTask = LtrlTask(),
     var tasksResponse: MutableList<LtrlTask> = mutableListOf(),
+
+    var corSettings: LtrlCorSettings = LtrlCorSettings(),
 
     )

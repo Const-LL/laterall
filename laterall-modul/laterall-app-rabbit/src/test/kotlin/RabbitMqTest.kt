@@ -129,7 +129,10 @@ internal class RabbitMqTest {
         TaskCreateRequest(
             task = TaskCreateObject(
                 title = title,
-                description = description
+                description = description,
+                taskstart = "2024-05-20T08:09:10Z",
+                taskend = "2024-05-20T08:09:10Z",
+                taskappend = "2024-05-20T08:09:10Z"
             ),
             requestType = "create",
             debug = TaskDebug(

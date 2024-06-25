@@ -33,6 +33,8 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
 coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
 
 # Message Queues
 rabbitmq-client = { module = "com.rabbitmq:amqp-client", version = "5.20.0" }
@@ -41,6 +43,7 @@ rabbitmq-client = { module = "com.rabbitmq:amqp-client", version = "5.20.0" }
 testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "testcontainers" }
 
+cor = { module = "ru.otus.otuskotlin.laterall.libs:laterall-lib-cor" }
 
 # Spring
 spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
