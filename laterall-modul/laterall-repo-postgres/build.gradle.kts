@@ -38,12 +38,12 @@ dependencies {
 }
 
 
-var pgPort = 5432
-val taskGroup = "pgContainer"
-val pgDbName = "laterall_tasks"
-val pgUsername = "postgres"
-val pgPassword = "laterall-pass"
-val containerStarted = AtomicBoolean(false)
+//var pgPort = 5432
+//val taskGroup = "pgContainer"
+//val pgDbName = "laterall_tasks"
+//val pgUsername = "postgres"
+//val pgPassword = "laterall-pass"
+//val containerStarted = AtomicBoolean(false)
 //
 //tasks {
 //    // Здесь в тасках запускаем PotgreSQL в контейнере

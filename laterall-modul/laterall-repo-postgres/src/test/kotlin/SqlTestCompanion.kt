@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.laterall.repo.common.IRepoTaskInitializable
 object SqlTestCompanion {
     private const val HOST = "localhost"
     private const val USER = "postgres"
-    private const val PASS = "laterall-pass"
+    private const val PASS = "postgres"
     val PORT = getEnv("postgresPort")?.toIntOrNull() ?: 5432
 
     fun repoUnderTestContainer(
