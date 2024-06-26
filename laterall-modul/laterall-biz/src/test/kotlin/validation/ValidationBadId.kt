@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import ru.otus.otuskotlin.laterall.biz.LtrlTaskProcessor
 import ru.otus.otuskotlin.laterall.common.LtrlContext
 import ru.otus.otuskotlin.laterall.common.models.*
+import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -13,13 +14,7 @@ fun validationIdCorrect(command: LtrlCommand, processor: LtrlTaskProcessor) = ru
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.get(),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -31,13 +26,9 @@ fun validationIdTrim(command: LtrlCommand, processor: LtrlTaskProcessor) = runTe
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId(" \n\t 123-234-abc-ABC \n\t "),
-            title = "abc",
-            description = "abc",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            id = LtrlTaskId(" \n\t ${id.asString()} \n\t ")
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -49,13 +40,9 @@ fun validationIdEmpty(command: LtrlCommand, processor: LtrlTaskProcessor) = runT
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId(""),
-            title = "abc",
-            description = "abc",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            id = LtrlTaskId("")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -70,13 +57,9 @@ fun validationIdFormat(command: LtrlCommand, processor: LtrlTaskProcessor) = run
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("!@#\$%^&*(),.{}"),
-            title = "abc",
-            description = "abc",
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            id = LtrlTaskId("!@#\$%^&*(),.{}")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import ru.otus.otuskotlin.laterall.biz.LtrlTaskProcessor
 import ru.otus.otuskotlin.laterall.common.LtrlContext
 import ru.otus.otuskotlin.laterall.common.models.*
+import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -13,14 +14,7 @@ fun validationLockCorrect(command: LtrlCommand, processor: LtrlTaskProcessor) = 
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("123-234-abc-ABC"),
-        ),
+        taskRequest = LtrlTaskStub.get(),
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -32,14 +26,9 @@ fun validationLockTrim(command: LtrlCommand, processor: LtrlTaskProcessor) = run
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock(" \n\t 123-234-abc-ABC \n\t "),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            lock = LtrlTaskLock(" \n\t 123-234-abc-ABC \n\t ")
+        },
     )
     processor.exec(ctx)
     assertEquals(0, ctx.errors.size)
@@ -51,14 +40,9 @@ fun validationLockEmpty(command: LtrlCommand, processor: LtrlTaskProcessor) = ru
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock(""),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            lock = LtrlTaskLock("")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)
@@ -73,14 +57,9 @@ fun validationLockFormat(command: LtrlCommand, processor: LtrlTaskProcessor) = r
         command = command,
         state = LtrlState.NONE,
         workMode = LtrlWorkMode.TEST,
-        taskRequest = LtrlTask(
-            id = LtrlTaskId("123-234-abc-ABC"),
-            title = "abc",
-            description = "abc",
-            
-            visibility = LtrlVisibility.VISIBLE_PUBLIC,
-            lock = LtrlTaskLock("!@#\$%^&*(),.{}"),
-        ),
+        taskRequest = LtrlTaskStub.prepareResult {
+            lock = LtrlTaskLock("!@#\$%^&*(),.{}")
+        },
     )
     processor.exec(ctx)
     assertEquals(1, ctx.errors.size)

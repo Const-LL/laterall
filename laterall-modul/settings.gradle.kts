@@ -33,3 +33,10 @@ include(":laterall-app-spring")
 include(":laterall-app-common")
 
 include(":laterall-app-rabbit")
+
+// DB
+include(":laterall-repo-common")
+include(":laterall-repo-inmemory")
+include(":laterall-repo-stubs")
+include(":laterall-repo-tests")
+include(":laterall-repo-postgres")

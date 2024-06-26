@@ -4,7 +4,7 @@ info:
   description: Some project for shedule life tasks
   version: "1.0"
 servers:
-  - url: https://localhost:8080
+  - url: http://localhost:8080
 paths:
   /task/create:
     post:
@@ -336,6 +336,8 @@ components:
         searchString:
           type: string
           description: Поисковая строка, которая будет искаться в задачах
+        ownerId:
+          $ref: '#/components/schemas/UserId'
 
     TaskSearchRequest:
       allOf:

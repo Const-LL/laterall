@@ -16,6 +16,7 @@ data class LtrlTask(
     var ownerId: LtrlUserId = LtrlUserId.NONE,
     var visibility: LtrlVisibility = LtrlVisibility.NONE,
     var lock: LtrlTaskLock = LtrlTaskLock.NONE,
+    var productId: LtrlProductId = LtrlProductId.NONE,
     val permissionsClient: MutableSet<LtrlTaskPermissionClient> = mutableSetOf()
 ) {
     fun deepCopy(): LtrlTask = copy(

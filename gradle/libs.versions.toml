@@ -17,6 +17,9 @@ spring-boot = "3.2.0"
 
 mockito = "5.2.1"
 
+liquibase = "4.27.0"
+exposed = "0.50.0"
+
 # Docker
 testcontainers = "1.19.7"
 muschko = "9.4.0"
@@ -34,6 +37,7 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
 coroutines-reactive = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactive", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+uuid = "com.benasher44:uuid:0.8.4"
 
 
 # Message Queues
@@ -42,6 +46,7 @@ rabbitmq-client = { module = "com.rabbitmq:amqp-client", version = "5.20.0" }
 #testcontainers
 testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "testcontainers" }
+testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
 
 cor = { module = "ru.otus.otuskotlin.laterall.libs:laterall-lib-cor" }
 
@@ -50,8 +55,22 @@ spring-actuator = { module = "org.springframework.boot:spring-boot-starter-actua
 spring-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 spring-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version = "2.3.0" }
 spring-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-mockk = "com.ninja-squad:springmockk:4.0.2"
 
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito" }
+
+# Databases
+db-cache4k = "io.github.reactivecircus.cache4k:cache4k:0.13.0"
+db-postgres = "org.postgresql:postgresql:42.7.3"
+db-hikari = "com.zaxxer:HikariCP:5.1.0"
+db-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+db-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+db-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+
+# Liquidbase
+liquibase-core = {module = "org.liquibase:liquibase-core", version.ref = "liquibase"}
+liquibase-picocli = "info.picocli:picocli:4.7.5"
+liquibase-snakeyml = "org.yaml:snakeyaml:1.33"
 
 
 [plugins]
@@ -71,3 +90,9 @@ spring-kotlin = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotl
 # Docker
 muschko-remote = { id = "com.bmuschko.docker-remote-api", version.ref = "muschko" }
 muschko-java = { id = "com.bmuschko.docker-java-application", version.ref = "muschko" }
+
+
+liquibase = { id = "org.liquibase.gradle", version = "2.2.2" }
+
+[bundles]
+exposed = ["db-exposed-core", "db-exposed-dao", "db-exposed-jdbc"]

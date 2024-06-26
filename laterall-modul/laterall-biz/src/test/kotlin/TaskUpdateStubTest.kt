@@ -7,6 +7,7 @@ import ru.otus.otuskotlin.laterall.common.LtrlContext
 import ru.otus.otuskotlin.laterall.common.NONE
 import ru.otus.otuskotlin.laterall.common.models.*
 import ru.otus.otuskotlin.laterall.common.stubs.LtrlStubs
+import ru.otus.otuskotlin.laterall.stubs.LtrlTaskStub
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,9 +21,9 @@ class TaskUpdateStubTest {
     val visibility = LtrlVisibility.VISIBLE_PUBLIC
     var importance = LtrlTaskImportance.LOW
     var priority = 50
-    var taskstart = Instant.NONE
-    var taskend = Instant.NONE
-    var taskappend = Instant.NONE
+    var taskstart = LtrlTaskStub.get().taskstart
+    var taskend = LtrlTaskStub.get().taskend
+    var taskappend = LtrlTaskStub.get().taskappend
     var group: LtrlTaskGroup = LtrlTaskGroup.OTHER
 
     @Test

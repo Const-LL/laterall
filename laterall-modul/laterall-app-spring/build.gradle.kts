@@ -28,10 +28,22 @@ dependencies {
     // biz
     implementation(project(":laterall-biz"))
 
+    implementation(project(":laterall-stubs"))
+
+    //db common + inmemory
+    implementation(project(":laterall-repo-common"))
+    implementation(project(":laterall-repo-stubs"))
+    implementation(project(":laterall-repo-inmemory"))
+
+    //db-pg
+    implementation(project(":laterall-repo-postgres"))
+
+
     // tests
-    testImplementation(kotlin("test-junit5"))
+    testImplementation(kotlin("test"))
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.spring.mockk)
 }
 
 tasks {
@@ -52,4 +64,5 @@ tasks {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+//    environment("LTRLTASKS_DB", "test_db")
 }
