@@ -30,9 +30,13 @@ dependencies {
 
     implementation(project(":laterall-stubs"))
 
+    //db common + inmemory
     implementation(project(":laterall-repo-common"))
     implementation(project(":laterall-repo-stubs"))
     implementation(project(":laterall-repo-inmemory"))
+
+    //db-pg
+    implementation(project(":laterall-repo-postgres"))
 
 
     // tests
@@ -60,4 +64,5 @@ tasks {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+//    environment("LTRLTASKS_DB", "test_db")
 }
